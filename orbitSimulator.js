@@ -8,26 +8,48 @@ const centerY = canvas.height / 2;
 
 let bodies = [];
 
+function randomNormal() {
+    var u = 0, v = 0;
+    while (u === 0) u = Math.random(); // Converting [0,1) to (0,1)
+    while (v === 0) v = Math.random();
+    return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+}
+
+
 function initializeBodies() {
     // Reset or initialize the bodies array
     bodies = [
         // Sun
-        { x: 0, y: 0, vx: 0, vy: 0, mass: 1.989e30 },
+        { x: 0, y: 0, vx: 0, vy: 0, mass: 6.417e29  },
         // Earth
         { x: 147.1e9 / scaleFactor, y: 0, vx: 0, vy: -30290, mass: 5.972e24 },
         // Mars
-        { x: 227.9e9 / scaleFactor, y: 0, vx: 0, vy: -24130, mass: 6.417e29 },
+        { x: 227.9e9 / scaleFactor, y: 0, vx: 0, vy: -10130, mass: 6.417e29 },
         // Add additional bodies as needed
     ];
 
     // Add 10 more arbitrary bodies with random positions and velocities
     for (let i = 0; i < 1000; i++) {
-        let distance = (100 + Math.random() * 150) * 1e9; // Random distance from Sun
+        let distance = (100 + randomNormal() * 15) * 1e9; // Random distance from Sun
         let angle = Math.random() * 2 * Math.PI; // Random angle
         let velocity = Math.sqrt(G * bodies[0].mass / distance); // Approximate circular orbit velocity
         bodies.push({
             x: distance * Math.cos(angle) / scaleFactor,
             y: distance * Math.sin(angle) / scaleFactor,
+            vx: -velocity * Math.sin(angle),
+            vy: velocity * Math.cos(angle),
+            mass: Math.random() * 5e24 + 1e23 // Random mass
+        });
+    }
+    
+        // Add 10 more arbitrary bodies with random positions and velocities
+    for (let i = 0; i < 1000; i++) {
+        let distance = (100 + Math.random() * 4) * 1e9; // Random distance from Sun
+        let angle = Math.random() * 2 * Math.PI; // Random angle
+        let velocity = Math.sqrt(G * bodies[0].mass / distance); // Approximate circular orbit velocity
+        bodies.push({
+            x: bodies[2].x + distance * Math.cos(angle) / scaleFactor,
+            y: bodies[2].y + distance * Math.sin(angle) / scaleFactor,
             vx: -velocity * Math.sin(angle),
             vy: velocity * Math.cos(angle),
             mass: Math.random() * 5e24 + 1e23 // Random mass
@@ -101,10 +123,18 @@ function draw() {
 
         // ctx.shadowBlur = 20;
         // ctx.shadowColor = 'rgba(0, 0, 255, 0.5)'; // Example: blue glow
+        
+        // Calculate radius based on the logarithm of the mass
+        const minRadius = 0.1; // Minimum radius
+        const scale = 0.3; // Scale factor to adjust the size visually
+        let radius = minRadius + scale * (Math.log10(body.mass) - 20);
+
     
         ctx.beginPath();
-        ctx.arc(body.x + centerX, body.y + centerY, 5, 0, 2 * Math.PI);
+        ctx.arc(body.x + centerX, body.y + centerY, radius, 0, 2 * Math.PI);
         ctx.fill();
+        
+    
         
 
         // Draw acceleration vector
