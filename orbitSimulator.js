@@ -27,7 +27,7 @@ function initializeBodies() {
         // Earth
         { x: 147.1e9 / scaleFactor, y: 0, vx: 0, vy: -30290, mass: 5.972e24 },
         // Mars
-        { x: 227.9e9 / scaleFactor, y: 0, vx: 0, vy: -10130, mass: 6.417e29 },
+        { x: separation / scaleFactor, y: 0, vx: 0, vy: -10130, mass: 6.417e29 },
         // Add additional bodies as needed
     ];
 
@@ -60,6 +60,10 @@ function initializeBodies() {
     }
 }
 
+function updateSeparation() {
+    initializeBodies();
+    // Optionally reset other aspects of the simulation as needed
+}
 
 function updatePositions(dt) {
     // Update velocities, positions, and store acceleration
