@@ -29,7 +29,7 @@ function initializeBodies() {
     ];
 
     // Add 10 more arbitrary bodies with random positions and velocities
-    for (let i = 0; i < 800; i++) {
+    for (let i = 0; i < 500; i++) {
         let distance = (100 + randomNormal() * 15) * 1e9; // Random distance from Sun
         let angle = Math.random() * 2 * Math.PI; // Random angle
         let velocity = Math.sqrt(G * bodies[0].mass / distance); // Approximate circular orbit velocity
@@ -43,7 +43,7 @@ function initializeBodies() {
     }
     
         // Add 10 more arbitrary bodies with random positions and velocities
-    for (let i = 0; i < 800; i++) {
+    for (let i = 0; i < 500; i++) {
         let distance = (100 + Math.random() * 4) * 1e9; // Random distance from Sun
         let angle = Math.random() * 2 * Math.PI; // Random angle
         let velocity = Math.sqrt(G * bodies[0].mass / distance); // Approximate circular orbit velocity
