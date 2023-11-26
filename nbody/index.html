@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>2D Keplerian Orbit Simulator</title>
+</head>
+<body>
+    <div>
+        <label for="separation">Initial Separation (in 1e9 meters): </label>
+        <input type="number" id="separation" value="100">
+        <button onclick="updateSeparation()">Update Separation</button>
+    </div>    
+    <canvas id="orbitCanvas" width="800" height="800"></canvas>
+    <script src="orbitSimulator.js"></script>
+</body>
+</html>

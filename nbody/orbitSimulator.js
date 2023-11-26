@@ -18,6 +18,9 @@ function randomNormal() {
 
 function initializeBodies() {
     // Reset or initialize the bodies array
+
+    let separation = parseFloat(document.getElementById('separation').value) * 1e9;
+
     bodies = [
         // Sun
         { x: 0, y: 0, vx: 0, vy: 0, mass: 6.417e29  },
@@ -133,14 +136,13 @@ function draw() {
         ctx.beginPath();
         ctx.arc(body.x + centerX, body.y + centerY, radius, 0, 2 * Math.PI);
         ctx.fill();
-        
-    
-        
 
         // Draw acceleration vector
+        /*
         const vectorScale = 5e4; // Adjust this scale for a visible vector length
         const endX = body.x + centerX + body.ax * vectorScale;
         const endY = body.y + centerY + body.ay * vectorScale;
+        */
         //drawArrow(ctx, body.x + centerX, body.y + centerY, endX, endY, 2, 'red');
 
     }
